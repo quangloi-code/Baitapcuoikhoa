@@ -34,11 +34,12 @@ public class LibraryController {
             userService.createLibrarian("L001", "Admin", "admin@lib.com");
 
             // Tạo Members
-            userService.createMember("M001", "Nguyễn Văn A", "nguyenvana@email.com");
-            userService.createMember("M002", "Trần Thị B", "tranthi@email.com");
+            userService.createMember("M001", "Nguyễn Văn Nam", "nguyenvana@email.com");
+            userService.createMember("M002", "Trần Thị Cúc", "tranthi@email.com");
+            userService.createMember("M003", "Nguyễn Quang Lợi", "quangloi@email.com");
 
             // Tạo sách
-            bookService.createBook("textbook", "B001", "Lập trình Java", "Nguyễn Văn A", 2021, 5);
+            bookService.createBook("textbook", "B001", "Lập trình Java", "Nguyễn Văn ", 2021, 5);
             bookService.createBook("novel", "B002", "Đắc Nhân Tâm", "Dale Carnegie", 2018, 3);
             bookService.createBook("referencebook", "B003", "Bách khoa toàn thư", "Nhiều tác giả", 2020, 2);
 
@@ -98,7 +99,7 @@ public class LibraryController {
             System.out.println("4. Tìm kiếm");
             System.out.println("5. Sắp xếp");
             System.out.println("6. Đăng xuất");
-            System.out.println("Chọn: ");
+            System.out.print("Chọn: ");
             try {
                 int c = Integer.parseInt(sc.nextLine());
                 switch (c) {
@@ -129,7 +130,7 @@ public class LibraryController {
             System.out.println("5. Trả sách");
             System.out.println("6. Sách đang mượn");
             System.out.println("7. Đăng xuất");
-            System.out.println("Chọn: ");
+            System.out.print("Chọn: ");
             try {
                 int c = Integer.parseInt(sc.nextLine());
                 switch (c) {
@@ -155,7 +156,7 @@ public class LibraryController {
         System.out.println("2. Sửa");
         System.out.println("3. Xóa");
         System.out.println("4. Back");
-        System.out.println("Chon: ");
+        System.out.print("Chon: ");
         try {
             int c = Integer.parseInt(sc.nextLine());
             if (c == 1)
@@ -279,7 +280,7 @@ public class LibraryController {
         System.out.println("1. Theo Title");
         System.out.println("2. Theo Author");
         System.out.println("3. Theo Category");
-        System.out.println("Chọn: ");
+        System.out.print("Chọn: ");
         try {
             System.out.println();
             int c = Integer.parseInt(sc.nextLine());
@@ -303,14 +304,15 @@ public class LibraryController {
         System.out.println("1. Theo Title");
         System.out.println("2. Theo Year");
         System.out.println("3. Theo Quantity");
-        System.out.println("Chọn: ");
+        System.out.print("Chọn: ");
         try {
             int c = Integer.parseInt(sc.nextLine());
             List<Book> sorted = switch (c) {
                 case 1 -> sortService.sortByTitle();
                 case 2 -> sortService.sortByYearDescending();
                 case 3 -> sortService.sortByQuantityDescending();
-                default -> throw new InvalidMenuOptionException("Chọn 1-3.");
+                default ->
+                        throw new InvalidMenuOptionException("Chọn 1-3.");
             };
             sorted.forEach(b -> System.out.println(b.getTitle() + " - " + b.getYear() + " - " + b.getQuantity()));
         } catch (Exception e) {
@@ -336,7 +338,8 @@ public class LibraryController {
             BorrowRecord record = borrowService.returnBook(currentUser.getIdUser(), bookId);
             System.out.println("Trả thành công. Mượn " + record.getBorrowDays() + " ngày");
         } catch (Exception e) {
-            System.out.println(e.getMessage()); }
+            System.out.println(e.getMessage());
+        }
     }
 
     private void viewBorrowedBooks() {
